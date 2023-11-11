@@ -20,4 +20,10 @@ public class BeerRestControllerSecurityTest extends BaseSecurityTest {
         mockMvc.perform(get("/api/v1/beer/notValidUuid"))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void findBeerByUpc() throws Exception {
+        mockMvc.perform(get("/api/v1/beerUpc/upc"))
+                .andExpect(status().isOk());
+    }
 }
