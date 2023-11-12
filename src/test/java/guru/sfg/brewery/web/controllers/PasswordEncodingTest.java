@@ -1,16 +1,35 @@
 package guru.sfg.brewery.web.controllers;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.DigestUtils;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PasswordEncodingTest {
 
     static final String PASSWORD = "password";
 
     @Test
+    void testLdap() {
+        //deprecated
+        PasswordEncoder ldap = new LdapShaPasswordEncoder();
+
+        //random salt is used each time different result will be produced
+        //ex - {SSHA}ovAmodOyCqZ0Rtx+ubLbve+mnnc7LthIjMJimQ==
+        System.out.println(ldap.encode(PASSWORD));
+        System.out.println(ldap.encode(PASSWORD));
+
+        String encodedPassword = ldap.encode(PASSWORD);
+
+        assertTrue(ldap.matches(PASSWORD, encodedPassword));
+    }
+
+    @Test
     void testNoOp() {
+        //deprecated
         PasswordEncoder noOp = NoOpPasswordEncoder.getInstance();
 
         //output - "password"
