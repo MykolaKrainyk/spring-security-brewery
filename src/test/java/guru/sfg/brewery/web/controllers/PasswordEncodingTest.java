@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.util.DigestUtils;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,6 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PasswordEncodingTest {
 
     static final String PASSWORD = "password";
+
+    @Test
+    void testSha256() {
+        //deprecated
+        PasswordEncoder sha256 = new StandardPasswordEncoder();
+
+        //different outputs, like - 31e18b6e8eeca4a4e10e26d4bd1247a3e631f089bc47da5c157b133964ce7ea85d60b7f5ede1f8c7
+        System.out.println(sha256.encode(PASSWORD));
+        System.out.println(sha256.encode(PASSWORD));
+    }
 
     @Test
     void testLdap() {
