@@ -7,17 +7,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //overriding default delegating password encoding DelegatingPasswordEncoder
+    //it is the default DelegatingPasswordEncoder
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
@@ -41,32 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("spring")
-                //add {noop} as a password encoder id - store password without any encryption or hashing
-                .password("security")
+                .password("{bcrypt}$2a$10$sMa2ij3cTLoEGe/Cgf9ALO7oylZjlDIwbUe7BL2Fxo.jJOV4fi1Ji")
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("$2a$10$q5mccod0qQlckoVA1NnbLOXnN.xg69zf3UCxRrcrw38OZOvpAisKW")
+                .password("{sha256}4bf932bca50e3af5ff927841552fa3c404e1ad0552b96c235249201900994f9bbe4c21dc9f5326dd")
                 .roles("USER");
 
-        auth.inMemoryAuthentication().withUser("scott").password("tiger").roles("CUSTOMER");
+        auth.inMemoryAuthentication().withUser("scott")
+                .password("{ldap}{SSHA}3dseHNSpkBp4zwahcfkLypppEcD+bJB3xRU4Dw==")
+                .roles("CUSTOMER");
     }
-
-    //    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails admin = User.withDefaultPasswordEncoder()
-//                .username("spring")
-//                .password("security")
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, user);
-//    }
 }

@@ -14,6 +14,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BeerControllerSecurityTest extends BaseSecurityTest{
 
     @Test
+    void initCreationFormWithSpring() throws Exception {
+        mockMvc.perform(get("/beers/new").with(httpBasic("spring", "security")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("beers/createBeer"))
+                .andExpect(model().attributeExists("beer"));
+    }
+
+    @Test
     void initCreationForm() throws Exception {
         mockMvc.perform(get("/beers/new").with(httpBasic("user", "password")))
                 .andExpect(status().isOk())

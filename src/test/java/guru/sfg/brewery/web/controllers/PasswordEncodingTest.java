@@ -19,8 +19,7 @@ public class PasswordEncodingTest {
         // strength might be passed as constructor argument. Default value is 10
         PasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
-        System.out.println(bcrypt.encode(PASSWORD));
-        System.out.println(bcrypt.encode(PASSWORD));
+        System.out.println(bcrypt.encode("security"));
     }
 
     @Test
@@ -29,7 +28,6 @@ public class PasswordEncodingTest {
         PasswordEncoder sha256 = new StandardPasswordEncoder();
 
         //different outputs, like - 31e18b6e8eeca4a4e10e26d4bd1247a3e631f089bc47da5c157b133964ce7ea85d60b7f5ede1f8c7
-        System.out.println(sha256.encode(PASSWORD));
         System.out.println(sha256.encode(PASSWORD));
     }
 
@@ -40,8 +38,7 @@ public class PasswordEncodingTest {
 
         //random salt is used each time different result will be produced
         //ex - {SSHA}ovAmodOyCqZ0Rtx+ubLbve+mnnc7LthIjMJimQ==
-        System.out.println(ldap.encode(PASSWORD));
-        System.out.println(ldap.encode(PASSWORD));
+        System.out.println(ldap.encode("tiger"));
 
         String encodedPassword = ldap.encode(PASSWORD);
 
