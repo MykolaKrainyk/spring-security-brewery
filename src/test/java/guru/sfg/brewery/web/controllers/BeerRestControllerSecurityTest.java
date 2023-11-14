@@ -14,7 +14,7 @@ public class BeerRestControllerSecurityTest extends BaseSecurityTest {
     void deleteBeer() throws Exception {
         mockMvc.perform(delete("/api/v1/beer/notValidUuid")
                 .header("Api-Key", "spring")
-                .header("Api-Secret", "secret"))
+                .header("Api-Secret", "security"))
                 .andExpect(status().isBadRequest());
     }
 
