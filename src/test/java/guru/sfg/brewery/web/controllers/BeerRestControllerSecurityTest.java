@@ -3,11 +3,20 @@ package guru.sfg.brewery.web.controllers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 public class BeerRestControllerSecurityTest extends BaseSecurityTest {
+
+    @Test
+    void deleteBeer() throws Exception {
+        mockMvc.perform(delete("/api/v1/beer/notValidUuid")
+                .header("Api-Key", "spring")
+                .header("Api-Secret", "secret"))
+                .andExpect(status().isBadRequest());
+    }
 
     @Test
     void findBeers() throws Exception {
