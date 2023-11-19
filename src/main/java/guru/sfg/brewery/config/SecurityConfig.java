@@ -57,19 +57,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().sameOrigin();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("spring")
-                .password("{bcrypt}$2a$10$sMa2ij3cTLoEGe/Cgf9ALO7oylZjlDIwbUe7BL2Fxo.jJOV4fi1Ji")
-                .roles("ADMIN")
-                .and()
-                .withUser("user")
-                .password("{sha256}4bf932bca50e3af5ff927841552fa3c404e1ad0552b96c235249201900994f9bbe4c21dc9f5326dd")
-                .roles("USER");
-
-        auth.inMemoryAuthentication().withUser("scott")
-                .password("{ldap}{SSHA}3dseHNSpkBp4zwahcfkLypppEcD+bJB3xRU4Dw==")
-                .roles("CUSTOMER");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("spring")
+//                .password("{bcrypt}$2a$10$sMa2ij3cTLoEGe/Cgf9ALO7oylZjlDIwbUe7BL2Fxo.jJOV4fi1Ji")
+//                .roles("ADMIN")
+//                .and()
+//                .withUser("user")
+//                .password("{sha256}4bf932bca50e3af5ff927841552fa3c404e1ad0552b96c235249201900994f9bbe4c21dc9f5326dd")
+//                .roles("USER");
+//
+//        auth.inMemoryAuthentication().withUser("scott")
+//                .password("{ldap}{SSHA}3dseHNSpkBp4zwahcfkLypppEcD+bJB3xRU4Dw==")
+//                .roles("CUSTOMER");
+//    }
 }
